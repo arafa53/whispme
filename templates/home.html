@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+<title>{% block title %}Home{% endblock title %}</title>
+{% block homeactive %}active{% endblock homeactive %}
+</head>
+
+<body>
+
+  {% block body %}
+  {% for post in allposts %}
+<div class="container my-2">
+<div class="card mb-3">
+  <img src="{{post.photo.url}}" style="height:400px;" class="card-img-top" alt="...">
+  <div class="card-body">
+  <h5 class="card-title">{{post.title}} </p></h5>
+  <h6 class="card-title">by <strong>{{post.author}}</strong> </p></h6>
+    
+    
+    <p class="card-text">{{post.content|truncatechars:500}}</p>
+    <p class="card-text"><small class="text-muted">{{post.timestamp}}</small></p>
+    <a class="btn nav-link my-2" role="button" href="/whispme/{{post.slug}}">Continue reading</a>
+  </div>
+</div>
+</div>
+{% endfor %}
+
+
+  {% endblock body %}
+
+</body>
+
+</html>

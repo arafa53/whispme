@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}
+Homeviews
+{% endblock title %}
+
+{% block body %}
+<div class="container my-2">
+  <div class="card mb-3">
+    <img src="{{post.photo.url}}" style="height:400px;" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{post.title}}</h5>
+      <p class="card-text">{{post.content}}</p>
+      <p class="card-text">
+      <p class="text-muted">{{post.timestamp}} by <b>{{post.author}}</b></p>
+      </p>
+    </div>
+  </div>
+
+</div>
+<div class="container">
+  <h3>Comments here ({{comments.count}})</h3>
+  
+  {% if user.is_authenticated %}
+    
+  <form action="comment" method="POST">
+  {% csrf_token %}
+      <label for="exampleFormControlTextarea1">Enter your comment</label>
+      <input class="form-control" id="comment" name="comment">
+      <input type="hidden" name=postSno value="{{post.sno}}" >
+      <button  class=" btn my-2" type="submit">Submit</button>
+  </form>
+  {% else %}
+  <h6>Please login to post a comment</h6>
+{% endif %}
+{% for comment in comments  %}
+<div class="row my-3">
+<div class="col-md-1">
+  <img src="/static/man.png" class="img-fluid" alt="">
+</div>
+<div class="col-md-11"><b>{{comment.user.username}}</b> at {{comment.timestamp}}
+<div>{{comment.comment}}</div>
+</div>
+</div>
+
+{% endfor %}
+
+{% endblock body %}

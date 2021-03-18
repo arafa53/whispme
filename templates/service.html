@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+<title>{% block title %}Service{% endblock title %}</title>
+{% block serviceactive %}active{% endblock serviceactive %}
+{% block body %}
+
+
+<div class="container my-2">
+      
+  <form class="bg-white-50 text-white font-weight-bold" style=" padding: 10px;" action="service" method="post"  enctype="multipart/form-data">
+<h3 style="color: rgb(252, 249, 249);"><b> Upload your post :</b></h3>
+      {% csrf_token %}
+      {{form.as_p}}
+     
+      <button type="submit" class="btn btn-success">Upload</button>
+  </form>
+  {% for x in img %}
+ 
+  <div class="card-group col-lg-12 col-md-11 col-sm-12 col-xs-12 mt-3">
+    <div class="card">
+      <img src="{{x.image.url}}" class="img-fluid" alt="...">
+      <div class="card-body">
+        <p class="card-text"><b>{{x.caption}}</b></p>
+        <p class="card-text"><b>{{x.content}}</b></p>
+      </div>
+    </div>
+  </div>
+
+  {% endfor %}
+</div>
+
+{% endblock body %}
